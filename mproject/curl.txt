@@ -1,0 +1,1 @@
+curl http://127.0.0.1:8000/messadmin/myproductslist/ -H "Authorization: Token 300a730f5840deace73dad5f593cbbb7542e0367"
