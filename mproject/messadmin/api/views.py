@@ -23,7 +23,7 @@ class ProductsCreate(generics.CreateAPIView):
 	queryset = Products.objects.all()
 	serializer_class = ProductsCreateSerializer
 	permission_classes = [
-	    permissions.IsAuthenticated
+	    permissions.IsAuthenticated, permissions.IsAdminUser
 	]
 	def perform_create(self, serializer):
 		adminmess = MessModel.objects.filter(user=self.request.user)[0] 
@@ -59,7 +59,7 @@ class MyProducts(generics.ListAPIView):
 	serializer_class = ProductsSerializer
 	pagination_class = PostLimitOffsetPagination
 	permission_classes = [
-	    permissions.IsAuthenticated
+	    permissions.IsAuthenticated, permissions.IsAdminUser
 	]
 	def get_queryset(self):
 		adminmess = MessModel.objects.filter(user=self.request.user)[0]
@@ -72,7 +72,7 @@ class DeleteMyProduct(generics.ListAPIView):
 	serializer_class = ProductsSerializer
 	pagination_class = PostLimitOffsetPagination
 	permission_classes = [
-	    permissions.IsAuthenticated
+	    permissions.IsAuthenticated, permissions.IsAdminUser
 	]
 	def get_queryset(self):
 		id = self.request.GET.get('id')
@@ -87,10 +87,25 @@ class MyProductDetails(generics.ListAPIView):
 	serializer_class = ProductsSerializer
 	pagination_class = PostLimitOffsetPagination
 	permission_classes = [
-	    permissions.IsAuthenticated
+	    permissions.IsAuthenticated, permissions.IsAdminUser
 	]
 	def get_queryset(self):
 		id = self.request.GET.get('id')
 		adminmess = MessModel.objects.filter(user=self.request.user)[0]
 		qs = Products.objects.filter(mess = adminmess, id=id)
 		return qs
+
+class MyMessProfile(generics.ListAPIView):
+	lookup_field = 'pk'
+	serializer_class = MessAdminSerializer
+	pagination_class = PostLimitOffsetPagination
+	permission_classes = [
+	    permissions.IsAuthenticated, permissions.IsAdminUser
+	]
+	def get_queryset(self):
+		qs = MessModel.objects.filter(user=self.request.user)[0]
+		if qs:
+			return qs
+		else:
+			context = {'error' : 'you are not a mess admin'}
+			return JsonResponse(context)

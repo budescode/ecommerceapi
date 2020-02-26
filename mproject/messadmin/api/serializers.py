@@ -40,7 +40,8 @@ class MessAdminSerializer(serializers.ModelSerializer):
 		user = get_user_model().objects.create_user(
 		username=validated_data['username'],
 		email=validated_data['email'],
-		date_of_birth = validated_data['date_of_birth']
+		date_of_birth = validated_data['date_of_birth'],
+		is_staff = True
 		)
 		user.set_password(validated_data['password'])
 		user.save()
