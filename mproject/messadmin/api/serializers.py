@@ -17,6 +17,7 @@ class MessAdminSerializer(serializers.ModelSerializer):
 	username = serializers.CharField()
 	password = serializers.CharField()
 	email = serializers.EmailField()
+	date_of_birth = serializers.DateField()
 	# user = serializers.ReadOnlyField(source='user.username')
 	class Meta:
 		model = MessModel
@@ -39,6 +40,7 @@ class MessAdminSerializer(serializers.ModelSerializer):
 		user = get_user_model().objects.create_user(
 		username=validated_data['username'],
 		email=validated_data['email'],
+		date_of_birth = validated_data['date_of_birth']
 		)
 		user.set_password(validated_data['password'])
 		user.save()
