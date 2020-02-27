@@ -44,6 +44,19 @@ class CartDetails(generics.ListAPIView):
 	    qs = Cart.objects.all().filter(id=id, user=self.request.user)
 	    return qs
 
+class CartDelete(generics.ListAPIView):
+	lookup_field = 'pk'
+	serializer_class = CartSerializer
+	pagination_class = PostLimitOffsetPagination
+	permission_classes = [
+	    permissions.IsAuthenticated
+	]
+	def get_queryset(self):
+	    id = self.request.GET.get('id')
+	    qs = Cart.objects.all().filter(user=self.request.user)
+	    qs1 = qs.filter(id=id)
+	    qs1.delete()
+	    return qs
 
 @method_decorator(csrf_exempt, name='dispatch')
 class CartCreate(generics.CreateAPIView):
