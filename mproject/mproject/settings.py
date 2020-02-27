@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     ##### myapps
     'acc_users',
+    'cart',
     'messadmin',
     'products',
     'coupons',

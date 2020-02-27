@@ -37,8 +37,7 @@ class MyProducts(generics.ListAPIView):
 	    permissions.IsAuthenticated, permissions.IsAdminUser
 	]
 	def get_queryset(self):
-		qs = Products.objects.all().filter(user = self.request.user)
-		print(qs)
+		qs = Products.objects.all() #.filter(user = self.request.user)
 		return qs
 
 class DeleteMyProduct(generics.ListAPIView):
@@ -64,5 +63,5 @@ class MyProductDetails(generics.ListAPIView):
 	]
 	def get_queryset(self):
 		id = self.request.GET.get('id')
-		qs = Products.objects.filter(user = self.request.user, id=id)
+		qs = Products.objects.all().filter(user = self.request.user, id=id)
 		return qs

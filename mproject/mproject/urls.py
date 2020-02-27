@@ -20,6 +20,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('rest-auth/', include('rest_auth.urls')),
     path('messadmin/', include('messadmin.api.urls')),
+    path('products/', include('products.api.urls')),
+    path('cart/', include('cart.api.urls')),
     path('accountapi/', include('acc_users.api.urls')),
     path('', include('index.urls')),
 ]
