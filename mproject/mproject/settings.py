@@ -25,7 +25,7 @@ SECRET_KEY = 'i9!iz^wunb3wb#c4=yqlr0c-bvzym*fdc1*86ortidwj#cg-oh'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['typedev.pythonanywhere.com']
 
 
 # Application definition
@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'messadmin',
     'products',
     'coupons',
-    ### my apps    
+    ### my apps
 
     'rest_framework',
     'rest_framework.authtoken',

@@ -1,10 +1,11 @@
 from django.db import models
-from messadmin.models import MessModel
+from django.contrib.auth import get_user_model
 
 class Products(models.Model):
-	mess = models.ForeignKey(MessModel, on_delete = models.CASCADE)
-	name = models.CharField(max_length=50)
-	product_type = models.CharField(max_length=50, help_text='e.g veg/ non veg/ jain')
-	details = models.TextField()
-	specifications = models.CharField(max_length=50, help_text='e.g Lunch, dinner only or breakfast, lunch, dinner')
-	available = models.BooleanField(default=True)
+    user = models.ForeignKey(get_user_model(), on_delete = models.CASCADE)
+    name = models.CharField(max_length=100)
+    category = models.CharField(max_length=100)
+    description = models.TextField()
+    image1 = models.ImageField(null=True, blank=True)
+    image2 = models.ImageField(null=True, blank=True)
+    image3 = models.ImageField(null=True, blank=True)
