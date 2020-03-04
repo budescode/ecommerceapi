@@ -47,9 +47,22 @@ class CategoriesList(generics.ListAPIView):
 @permission_classes([permissions.AllowAny])
 def ProductsView(request):
     qs = Products.objects.all()
-    category = Categories.objects.values()
-    return Response({'products': ProductListSerializer(qs, many=True).data, 'category':category})
+    category = Categories.objects.all()
+    return Response({'products': ProductListSerializer(qs, many=True).data, 'category':CategoriesListSerializer(category, many=True).data}, status=status.HTTP_404_NOT_FOUND)
     #return Response(qs)
+
+@api_view(['GET', 'POST'])
+@permission_classes([permissions.AllowAny])
+def ProductsDetail(request):
+    id = request.GET.get('id')
+    qs = Products.objects.filter(id=id)
+    if qs:
+        cate = qs[0].category
+        category = Categories.objects.get(name=cate)
+        related_products = Products.objects.filter(category=category).exclude(id=qs[0].id)
+        return Response({'products': ProductListSerializer(qs, many=True).data[0], 'related_products': ProductListSerializer(related_products, many=True).data})
+    else:
+        return Response({'error':'details does not exist'})
 
 
 class ProductDetails(generics.ListAPIView):
