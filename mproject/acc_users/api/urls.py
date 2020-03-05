@@ -9,6 +9,7 @@ app_name = 'account_api'
 
 urlpatterns = [
 path('usercreate/', views.UserCreate.as_view(), name='usercreate'),
-path('rest-auth/facebook/', views.FacebookLogin.as_view(), name='fb_login')
+path('rest-auth/facebook/', views.FacebookLogin.as_view(), name='fb_login'),
+path('myuserlogin/', views.MyUserLogin.as_view(), name='myuserlogin'),
 # path('detail/', views.DetailView.as_view(), name='detailview'),
 ]

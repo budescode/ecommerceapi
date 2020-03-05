@@ -3,8 +3,13 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
+
+class MessAdminLoginSerializer(serializers.Serializer):
+    username = serializers.CharField(max_length=200)
+    password = serializers.CharField(max_length=200)
+
 class UserSerializer(serializers.ModelSerializer):
-    
+
     #date_of_birth = serializers.DateField(default="1970-01-01", input_formats=settings.DATE_INPUT_FORMATS)
     class Meta:
         model = get_user_model()
